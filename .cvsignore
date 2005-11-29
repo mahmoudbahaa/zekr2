@@ -1,0 +1,5 @@
+*.log.?
+dist
+gcj-bin
+backup
+bin
