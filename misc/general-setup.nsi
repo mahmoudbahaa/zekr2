@@ -7,8 +7,8 @@ SetCompressor /SOLID lzma
 # Defines
 !define REGKEY "SOFTWARE\$(^Name)"
 !define APP_UNIX_NAME "zekr"
-!define VERSION 0.5.0.0
-!define RELEASE_VERSION "0.5.0"
+!define VERSION 0.6.0.0
+!define RELEASE_VERSION "0.6.0beta1"
 !define COMPANY siahe.com
 !define URL http://siahe.com/zekr
 
@@ -39,7 +39,7 @@ SetCompressor /SOLID lzma
 ReserveFile "${NSISDIR}\Plugins\AdvSplash.dll"
 
 # Variables
-!define BASE_APP "D:\Java\Programs\Zekr\dist\0.5.0\release\win"
+!define BASE_APP "D:\Java\Programs\Zekr\dist\0.6.0\beta1\win"
 Var StartMenuGroup
 Var JAVA_VER
 Var JRE_HOME
@@ -106,6 +106,11 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
     File /r "${BASE_APP}\*"
+
+    ; Arabic font copy
+    SetOverwrite try
+    File "/oname=$WINDIR\Fonts\me_quran_volt_mark2.ttf" "${BASE_APP}\..\..\me_quran_volt_mark2.ttf"
+
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
 SectionEnd
 
@@ -144,7 +149,11 @@ Section -post SEC0001
     File "${BASE_APP}\res\javaw.exe.manifest"
     SetOutPath "$JDK_HOME\bin"
     File "${BASE_APP}\res\javaw.exe.manifest"
-    SetOverwrite on
+    
+    ; Arabic font copy
+    #SetOutPath "$WINDIR\Fonts"
+    #File "${BASE_APP}\res\me_quran_volt_mark2.ttf"
+    #SetOverwrite on
 SectionEnd
 
 # Macro for selecting uninstaller sections
